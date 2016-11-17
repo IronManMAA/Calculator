@@ -12,7 +12,7 @@
 - (void) numValueWasChosen:(NSInteger)numValue;
 @end
 
-@property (nonatomic) id<NumSetDelegate> delegate;
+//@property (nonatomic) id<NumSetDelegate> delegate;
 //id is a bucket or container where you can place anything <> means a filter the object placed inside the id bucket must conform
 
 @interface CalcViewController : UIViewController
