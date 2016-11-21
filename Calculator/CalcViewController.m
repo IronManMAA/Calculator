@@ -55,25 +55,31 @@
     if (self.done) {
         self.DisplayFrame.text=@"";
         self.done=NO;
-        }
-    {self.DisplayFrame.text=[self.DisplayFrame.text stringByAppendingString:sender.titleLabel.text];}
-
+    }
+    if (!self.numVal1 && !self.numVal2)
+        { self.numVal1 = [sender.titleLabel.text floatValue];}
+        else
+        {
+        if (!self.numVal2)
+        { self.numVal2 = [sender.titleLabel.text floatValue];}
+    }
+    self.DisplayFrame.text=[self.DisplayFrame.text stringByAppendingString:sender.titleLabel.text];
 }
 
 - (IBAction)BOperand:(UIButton *)sender {
-    if (!self.operandAction) {
-    {self.DisplayFrame.text=[self.DisplayFrame.text stringByAppendingString:sender.titleLabel.text];}
-    self.operandAction=sender.titleLabel.text;
-    }
-    else
-    {
-        self.DisplayFrame.text=@"";
+    if (!(self.numVal1 == 0)) {
+       if (!self.operandAction) {
+       {self.DisplayFrame.text=[self.DisplayFrame.text stringByAppendingString:sender.titleLabel.text];}
+       self.operandAction=sender.titleLabel.text;
+       }
+    } else {
+        self.DisplayFrame.text=@"Please provide an operand.";
         self.operandAction=nil;
         self.numVal1 = 0;
         self.numVal2 = 0;
-        self.numTotal = 0;    
-        self.done=NO;
-        // replace Operand from DisplayFrame and reassign operandAction variable
+        self.numTotal = 0;
+        self.done=YES;
+        
     }
     }
 
@@ -110,8 +116,8 @@
           self.numVal1 = [firstString floatValue];
           self.numVal2 = [lastString floatValue];
           self.numTotal=self.numVal1 - self.numVal2;}
-      if([self.operandAction isEqualToString:@"*"]) {
-          NSArray *subStrings = [self.DisplayFrame.text componentsSeparatedByString:@"*"];
+      if([self.operandAction isEqualToString:@"x"]) {
+          NSArray *subStrings = [self.DisplayFrame.text componentsSeparatedByString:@"x"];
           NSString *firstString = [subStrings objectAtIndex:0];
           NSString *lastString = [subStrings objectAtIndex:1];
           self.numVal1 = [firstString floatValue];
@@ -125,7 +131,7 @@
           self.numVal2 = [lastString floatValue];
           self.numTotal=self.numVal1 / self.numVal2;}
       
-      self.DisplayFrame.text = [NSString stringWithFormat:@"%f", self.numTotal];
+      self.DisplayFrame.text = [NSString stringWithFormat:@"%.02f", self.numTotal];
       self.operandAction=nil;
       self.numVal1 = 0;
       self.numVal2 = 0;
@@ -133,7 +139,6 @@
       self.done=YES;
 
     }
-
 
 
 @end
